@@ -8,3 +8,7 @@ all:
       ansible_host: ssh.tacticsch.ml
       ansible_port: 22222
       ansible_user: dojo
+    saphirevert:
+      ansible_host: test2.pyrosaphire.ml
+      ansible_port: 22222
+      ansible_user: dojo
