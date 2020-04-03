@@ -1,17 +1,10 @@
 all:
   hosts:
-    
     nitou:
       ansible_host: ssh.nitou12.ml
       ansible_port: 1337
       ansible_user: dojo
-
     tacticsch:
       ansible_host: ssh.tacticsch.ml
       ansible_port: 22222
       ansible_user: dojo
-
-    
-#    nitou:
-#    tacticsch:
-
