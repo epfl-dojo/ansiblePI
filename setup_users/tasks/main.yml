@@ -14,14 +14,20 @@
 
 - name: Test become user
   copy:
-    content: "{{ item.name }}"
+    content: "{{ item }}"
     dest: "/home/{{ item.name }}/test.txt"
   become: yes
   become_user: "{{ item.name }}"
   with_items: "{{ piusers }}"
 
-- name: Ensure ssh keys
+- name: Ensure ssh keys in user's home
   command: ssh-import-id gh:{{ item.ghname }}
   become: yes
   become_user: "{{ item.name }}"
+  with_items: "{{ piusers }}"
+
+- name: Ensure ssh keys in root
+  command: ssh-import-id gh:{{ item.ghname }}
+  become: yes
+  become_user: root
   with_items: "{{ piusers }}"
