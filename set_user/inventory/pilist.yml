@@ -1,2 +1,9 @@
-dojo@ssh.nitou12.ml -p 1337
-dojo@ssh.tacticsch.ml -p 22222
+nitou:
+  ansible_host: ssh.nitou12.ml
+  ansible_port: 1337
+  ansible_user: dojo
+
+tacticsch:
+  ansible_host: ssh.tacticsch.ml
+  ansible_port: 22222
+  ansible_user: dojo
