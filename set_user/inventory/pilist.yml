@@ -1,3 +1,7 @@
+all:
+  - nitou
+  - tacticsch
+
 nitou:
   ansible_host: ssh.nitou12.ml
   ansible_port: 1337
