@@ -1,0 +1,14 @@
+---
+# Test creating a file
+- name: Create a file called '/tmp/testfile.txt' with the content 'hello world'.
+  copy:
+    content: hello world
+    dest: /tmp/testfile.txt
+  
+# Create a user
+- name: Ensure HelloDojo user
+  user:
+    name: HelloDojo
+    comment: Hello Dojo
+    group: dojo
+  become: yes
