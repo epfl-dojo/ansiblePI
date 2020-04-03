@@ -1,4 +1,5 @@
 ---
+# Test creating a file
 - name: This is a hello-world example
   hosts: all
   tasks:
@@ -6,3 +7,11 @@
       copy:
         content: hello worldn
         dest: /tmp/testfile.txt
+# Create a user
+- name: Create a HelloDojo user
+  hosts: all
+  tasks:
+   - user:
+      name: HelloDojo
+      comment: Hello Dojo
+      group: dojo
