@@ -4,11 +4,24 @@
   copy:
     content: hello world
     dest: /tmp/testfile.txt
-  
-# Create a user
-- name: Ensure HelloDojo user
+
+- name: Add several users
   user:
-    name: HelloDojo
-    comment: Hello Dojo
-    group: dojo
+    name: "{{ item.name }}"
+    state: present
   become: yes
+  with_items: "{{ piusers }}"
+
+- name: Test become user
+  copy:
+    content: "{{ item.name }}"
+    dest: "/home/{{ item.name }}/test.txt"
+  become: yes
+  become_user: "{{ item.name }}"
+  with_items: "{{ piusers }}"
+
+- name: Ensure ssh keys
+  command: ssh-import-id gh:{{ item.ghname }}
+  become: yes
+  become_user: "{{ item.name }}"
+  with_items: "{{ piusers }}"
