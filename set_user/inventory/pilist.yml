@@ -9,6 +9,6 @@ all:
       ansible_port: 22222
       ansible_user: dojo
     saphirevert:
-      ansible_host: test2.pyrosaphire.ml
+      ansible_host: ssh.pyrosaphire.ml
       ansible_port: 22222
       ansible_user: dojo
