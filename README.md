@@ -5,6 +5,22 @@
 
 `ansible-playbook -i inventory/hosts.yml playbook.yml`
 
+### Examples
+
+### Only on one host
+```
+ansible-playbook -i inventory/hosts.yml playbook.yml -l hostentry
+```
+
+### Specifying a tag
+```
+ansible-playbook -i inventory/hosts.yml playbook.yml --tags "test"
+```
+
+### Both
+```
+ansible-playbook -i inventory/hosts.yml playbook.yml -l hostentry --tags "test"
+```
 
 ## Notes
 
