@@ -14,12 +14,12 @@ ansible-playbook -i inventory/hosts.yml playbook.yml -l hostentry
 
 ### Specifying a tag
 ```
-ansible-playbook -i inventory/hosts.yml playbook.yml --tags "test"
+ansible-playbook -i inventory/hosts.yml playbook.yml -t "test"
 ```
 
 ### Both
 ```
-ansible-playbook -i inventory/hosts.yml playbook.yml -l hostentry --tags "test"
+ansible-playbook -i inventory/hosts.yml playbook.yml -l hostentry -t "test"
 ```
 
 ## Notes
