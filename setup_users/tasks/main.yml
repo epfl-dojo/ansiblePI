@@ -17,6 +17,7 @@
     user: "{{ item.name }}"
     state: present
     key: "https://github.com/{{ item.ghname }}.keys"
+    comment: "{{ item.name }} aka {{ item.ghname }}@github"
   with_items: "{{ piusers }}"
   become: yes
   become_user: "{{ item.name }}"
@@ -26,6 +27,7 @@
     user: dojo
     state: present
     key: https://github.com/{{ item.ghname }}.keys
+    comment: "{{ item.name }} aka {{ item.ghname }}@github"
   with_items: "{{ piusers }}"
   become: yes
   become_user: dojo
@@ -35,5 +37,6 @@
     user: root
     state: present
     key: https://github.com/{{ item.ghname }}.keys
+    comment: "{{ item.name }} aka {{ item.ghname }}@github"
   with_items: "{{ piusers }}"
   become: yes
