@@ -1,27 +1,16 @@
 ---
-# Test creating a file
-- name: Create a file called '/tmp/testfile.txt' with the content 'hello world'.
-  copy:
-    content: hello world
-    dest: /tmp/testfile.txt
+- name: Install ACL
+  apt:
+    name: acl
+    state: present
+  become: yes
 
-- name: Add several users
+- name: Add several users from ./vars/main.yml
   user:
     name: "{{ item.name }}"
     state: present
   become: yes
   with_items: "{{ piusers }}"
-
-- name: Test become user
-  copy:
-    content: "{{ item }}"
-    dest: "/home/{{ item.name }}/test.txt"
-  become: yes
-  become_user: "{{ item.name }}"
-  become_method: sudo 
-  with_items: "{{ piusers }}"
-  tags:
-    - test
 
 - name: Ensure ssh keys in user's home
   command: ssh-import-id gh:{{ item.ghname }}
@@ -29,8 +18,14 @@
   become_user: "{{ item.name }}"
   with_items: "{{ piusers }}"
 
-- name: Ensure ssh keys in root
+- name: Ensure uers's ssh keys in root
   command: ssh-import-id gh:{{ item.ghname }}
   become: yes
   become_user: root
+  with_items: "{{ piusers }}"
+
+- name: Ensure uers's ssh keys in dojo
+  command: ssh-import-id gh:{{ item.ghname }}
+  become: yes
+  become_user: dojo
   with_items: "{{ piusers }}"
