@@ -13,19 +13,27 @@
   with_items: "{{ piusers }}"
 
 - name: Ensure ssh keys in user's home
-  command: ssh-import-id gh:{{ item.ghname }}
+  authorized_key:
+    user: "{{ item.name }}"
+    state: present
+    key: "https://github.com/{{ item.ghname }}.keys"
+  with_items: "{{ piusers }}"
   become: yes
   become_user: "{{ item.name }}"
-  with_items: "{{ piusers }}"
 
-- name: Ensure uers's ssh keys in root
-  command: ssh-import-id gh:{{ item.ghname }}
-  become: yes
-  become_user: root
+- name: Ensure uers's ssh keys in dojo account
+  authorized_key:
+    user: dojo
+    state: present
+    key: https://github.com/{{ item.ghname }}.keys
   with_items: "{{ piusers }}"
-
-- name: Ensure uers's ssh keys in dojo
-  command: ssh-import-id gh:{{ item.ghname }}
   become: yes
   become_user: dojo
+
+- name: Ensure uers's ssh keys in root account
+  authorized_key:
+    user: root
+    state: present
+    key: https://github.com/{{ item.ghname }}.keys
   with_items: "{{ piusers }}"
+  become: yes
