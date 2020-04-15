@@ -22,6 +22,18 @@
   become: yes
   become_user: "{{ item.name }}"
 
+- name: Allow user to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: "{{ 'present' if item.sudoer == true else 'absent' }}"
+    regexp: "^{{ item.name }}"
+    line: "{{ item.name }} ALL=(ALL) NOPASSWD: ALL"
+    validate: 'visudo -cf %s'
+  with_items: "{{ piusers }}"
+  become: yes
+  tags:
+    - sudoer
+
 - name: Ensure uers's ssh keys in dojo account
   authorized_key:
     user: dojo
@@ -31,6 +43,15 @@
   with_items: "{{ piusers }}"
   become: yes
   become_user: dojo
+
+- name: Allow dojo to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: "^dojo"
+    line: "dojo ALL=(ALL) NOPASSWD: ALL"
+    validate: 'visudo -cf %s'
+  become: yes
 
 - name: Ensure uers's ssh keys in root account
   authorized_key:
