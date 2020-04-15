@@ -18,7 +18,10 @@
     dest: "/home/{{ item.name }}/test.txt"
   become: yes
   become_user: "{{ item.name }}"
+  become_method: sudo 
   with_items: "{{ piusers }}"
+  tags:
+    - test
 
 - name: Ensure ssh keys in user's home
   command: ssh-import-id gh:{{ item.ghname }}
