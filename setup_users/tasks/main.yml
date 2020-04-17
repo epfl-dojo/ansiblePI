@@ -5,6 +5,12 @@
     state: present
   become: yes
 
+- name: Install updates
+  apt:
+    update_cache: yes
+    upgrade: yes
+  become: yes
+
 - name: Add several users from ./vars/main.yml
   user:
     name: "{{ item.name }}"
