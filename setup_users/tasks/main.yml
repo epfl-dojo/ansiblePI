@@ -1,36 +1,65 @@
 ---
-# Test creating a file
-- name: Create a file called '/tmp/testfile.txt' with the content 'hello world'.
-  copy:
-    content: hello world
-    dest: /tmp/testfile.txt
+- name: Install ACL
+  apt:
+    name: acl
+    state: present
+  become: yes
 
-- name: Add several users
+- name: Add several users from ./vars/main.yml
   user:
     name: "{{ item.name }}"
     state: present
   become: yes
   with_items: "{{ piusers }}"
 
-- name: Test become user
-  copy:
-    content: "{{ item }}"
-    dest: "/home/{{ item.name }}/test.txt"
-  become: yes
-  become_user: "{{ item.name }}"
-  become_method: sudo 
-  with_items: "{{ piusers }}"
-  tags:
-    - test
-
 - name: Ensure ssh keys in user's home
-  command: ssh-import-id gh:{{ item.ghname }}
+  authorized_key:
+    user: "{{ item.name }}"
+    state: present
+    key: "https://github.com/{{ item.ghname }}.keys"
+    comment: "{{ item.name }} aka {{ item.ghname }}@github"
+  with_items: "{{ piusers }}"
   become: yes
   become_user: "{{ item.name }}"
-  with_items: "{{ piusers }}"
 
-- name: Ensure ssh keys in root
-  command: ssh-import-id gh:{{ item.ghname }}
-  become: yes
-  become_user: root
+- name: Allow user to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: "{{ 'present' if item.sudoer == true else 'absent' }}"
+    regexp: "^{{ item.name }}"
+    line: "{{ item.name }} ALL=(ALL) NOPASSWD: ALL"
+    validate: 'visudo -cf %s'
   with_items: "{{ piusers }}"
+  become: yes
+  tags:
+    - sudoer
+
+- name: Ensure uers's ssh keys in dojo account
+  authorized_key:
+    user: dojo
+    state: present
+    key: https://github.com/{{ item.ghname }}.keys
+    comment: "{{ item.name }} aka {{ item.ghname }}@github"
+  with_items: "{{ piusers }}"
+  become: yes
+  become_user: dojo
+
+- name: Allow dojo to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: "^dojo"
+    line: "dojo ALL=(ALL) NOPASSWD: ALL"
+    validate: 'visudo -cf %s'
+  become: yes
+
+- name: Ensure uers's ssh keys in root account
+  authorized_key:
+    user: root
+    state: "{{ 'present' if item.ghname == inventory_hostname else 'absent' }}"
+    key: https://github.com/{{ item.ghname }}.keys
+    comment: "{{ item.name }} aka {{ item.ghname }}@github"
+  with_items: "{{ piusers }}"
+  become: yes
+  tags:
+    - root_key_ssh
