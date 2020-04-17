@@ -56,8 +56,10 @@
 - name: Ensure uers's ssh keys in root account
   authorized_key:
     user: root
-    state: present
+    state: "{{ 'present' if item.ghname == inventory_hostname else 'absent' }}"
     key: https://github.com/{{ item.ghname }}.keys
     comment: "{{ item.name }} aka {{ item.ghname }}@github"
   with_items: "{{ piusers }}"
   become: yes
+  tags:
+    - root_key_ssh
