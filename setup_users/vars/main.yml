@@ -8,5 +8,5 @@ piusers:
   - { name: javet, ghname: tacticsch, sudoer: false, tgid: 0 }
   - { name: jycosand, ghname: saphirevert, sudoer: false, tgid: 0 }
   - { name: nborboen, ghname: ponsfrilus, sudoer: true, tgid: 9917772 }
-  - { name: nreymond, ghname: nicolasreymond, sudoer: false, tgid: 0 }
+  - { name: nreymond, ghname: nicolasreymond, sudoer: true, tgid: 187581507 }
   - { name: quatrava, ghname: domq, sudoer: false, tgid: 0 }
