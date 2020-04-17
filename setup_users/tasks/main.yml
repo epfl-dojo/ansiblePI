@@ -61,7 +61,7 @@
     validate: 'visudo -cf %s'
   become: yes
 
-- name: Ensure uers's ssh keys in root account
+- name: Ensure users's ssh keys in root account
   authorized_key:
     user: root
     state: "{{ 'present' if item.ghname == inventory_hostname else 'absent' }}"
