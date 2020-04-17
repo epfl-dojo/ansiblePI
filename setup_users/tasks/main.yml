@@ -19,10 +19,11 @@
 - name: Allow specific user to have passwordless sudo
   lineinfile:
     dest: /etc/sudoers
-    state: "{{ 'present' if item.sudoer == true else 'absent' }}"
+    state: present
     regexp: "^{{ item.name }}"
     line: "{{ item.name }} ALL=(ALL) NOPASSWD: ALL"
     validate: 'visudo -cf %s'
+  when: item.ghname != inventory_hostname and item.sudoer == true
   with_items: "{{ piusers }}"
   become: yes
   tags:
@@ -35,7 +36,7 @@
     regexp: "^{{ item.name }}"
     line: "{{ item.name }} ALL=(ALL) NOPASSWD: ALL"
     validate: 'visudo -cf %s'
-  when: item.ghname == inventory_hostname
+  when: item.ghname == inventory_hostname and item.sudoer == false
   with_items: "{{ piusers }}"
   become: yes
   tags:
