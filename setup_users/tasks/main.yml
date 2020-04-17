@@ -1,10 +1,4 @@
 ---
-- name: Install ACL
-  apt:
-    name: acl
-    state: present
-  become: yes
-
 - name: Add several users from ./vars/main.yml
   user:
     name: "{{ item.name }}"
@@ -22,13 +16,27 @@
   become: yes
   become_user: "{{ item.name }}"
 
-- name: Allow user to have passwordless sudo
+- name: Allow specific user to have passwordless sudo
   lineinfile:
     dest: /etc/sudoers
-    state: "{{ 'present' if item.sudoer == true else 'absent' }}"
+    state: present
     regexp: "^{{ item.name }}"
     line: "{{ item.name }} ALL=(ALL) NOPASSWD: ALL"
     validate: 'visudo -cf %s'
+  when: item.ghname != inventory_hostname and item.sudoer == true
+  with_items: "{{ piusers }}"
+  become: yes
+  tags:
+    - sudoer
+
+- name: Allow pi's owner to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: "^{{ item.name }}"
+    line: "{{ item.name }} ALL=(ALL) NOPASSWD: ALL"
+    validate: 'visudo -cf %s'
+  when: item.ghname == inventory_hostname and item.sudoer == false
   with_items: "{{ piusers }}"
   become: yes
   tags:
@@ -53,7 +61,7 @@
     validate: 'visudo -cf %s'
   become: yes
 
-- name: Ensure uers's ssh keys in root account
+- name: Ensure users's ssh keys in root account
   authorized_key:
     user: root
     state: "{{ 'present' if item.ghname == inventory_hostname else 'absent' }}"
