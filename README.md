@@ -3,7 +3,10 @@
 
 ## Usage
 
-`ansible-playbook -i inventory/hosts.yml playbook.yml`
+```
+ansible-playbook -i inventory/hosts.yml playbook.yml
+```
+
 
 ### Examples
 
