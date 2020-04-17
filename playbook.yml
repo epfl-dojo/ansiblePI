@@ -19,3 +19,5 @@
   hosts: all
   roles:
     - name: setup_users
+  tags:
+    - users
