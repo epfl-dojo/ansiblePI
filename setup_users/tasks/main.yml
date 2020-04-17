@@ -2,7 +2,7 @@
 - name: Install ACL
   apt:
     name: acl
-      state: present
+    state: present
   become: yes
 
 - name: Add several users from ./vars/main.yml
