@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+echo $PWD
+./tests_code.sh
