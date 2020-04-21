@@ -1,5 +1,4 @@
 ---
-
 - name: Add several users from ./vars/main.yml
   user:
     name: "{{ item.name }}"
@@ -48,10 +47,10 @@
     validate: 'visudo -cf %s'
   become: yes
 
-- name: Ensure uers's ssh keys in root account
+- name: Ensure users's ssh keys in root account
   authorized_key:
     user: root
-    state: "{{ 'present' if item.ghname == inventory_hostname else 'absent' }}"
+    state: "{{ 'present' if access else 'absent' }}"
     key: https://github.com/{{ item.ghname }}.keys
     comment: "{{ item.name }} aka {{ item.ghname }}@github"
   with_items: "{{ piusers }}"

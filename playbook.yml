@@ -1,9 +1,9 @@
 - name: Setup users
-  hosts: all
+  hosts: pi_*
   roles:
     - name: setup_users
 
 - name: Install pi
-  hosts: all
+  hosts: pi_*
   roles:
     - name: install_pi

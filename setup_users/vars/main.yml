@@ -4,9 +4,10 @@
 # https://docs.ansible.com/ansible/latest/plugins/lookup/items.html
 piusers:
   - { name: cangiani, ghname: multiscan, sudoer: false, tgid: 0 }
-  - { name: czufferey, ghname: zuzu59, sudoer: false, tgid: 21262372 }
-  - { name: javet, ghname: tacticsch, sudoer: false, tgid: 0 }
-  - { name: jycosand, ghname: saphirevert, sudoer: false, tgid: 0 }
-  - { name: nborboen, ghname: ponsfrilus, sudoer: true, tgid: 9917772 }
-  - { name: nreymond, ghname: nicolasreymond, sudoer: false, tgid: 0 }
+  - { name: czufferey, ghname: zuzu59, owns: ['pi_5'], sudoer: false, tgid: 21262372 }
+  - { name: javet, ghname: tacticsch, owns: ['pi_2'], sudoer: false, tgid: 0 }
+  - { name: jycosand, ghname: saphirevert, owns: ['pi_3'], sudoer: false, tgid: 0 }
+  - { name: nborboen, ghname: ponsfrilus, owns: ['pi_4'], sudoer: true, tgid: 9917772 }
+  - { name: nreymond, ghname: nicolasreymond, owns: ['pi_1'], sudoer: false, tgid: 0 }
   - { name: quatrava, ghname: domq, sudoer: false, tgid: 0 }
+access: "{{ inventory_hostname in item.get('owns', []) }}"
