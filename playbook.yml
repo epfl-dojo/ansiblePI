@@ -2,3 +2,8 @@
   hosts: all
   roles:
     - name: setup_users
+
+- name: Install pi
+  hosts: all
+  roles:
+    - name: install_pi
