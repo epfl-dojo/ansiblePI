@@ -16,8 +16,12 @@
     - install
 
 - name: Setup users
-  hosts: all
+  hosts: pi_*
   roles:
     - name: setup_users
-  tags:
-    - users
+
+- name: Install pi
+  hosts: pi_*
+  roles:
+    - name: install_pi
+
