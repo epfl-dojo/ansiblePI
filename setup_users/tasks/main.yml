@@ -52,7 +52,7 @@
   become: yes
   become_user: dojo
 
-- name: Allow dojo to have passwordless sudo
+- name: Allow dojo to sudo without password
   lineinfile:
     dest: /etc/sudoers
     state: present
