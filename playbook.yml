@@ -1,4 +1,19 @@
+- name: Install Pi
+  hosts: all
+  tasks:
+    - name: Install updates
+      apt:
+        update_cache: yes
+        upgrade: yes
+      become: yes
+
+
 - name: Setup users
   hosts: all
   roles:
     - name: setup_users
+
+- name: Install pi
+  hosts: all
+  roles:
+    - name: install_pi

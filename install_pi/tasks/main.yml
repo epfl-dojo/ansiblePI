@@ -1,0 +1,13 @@
+---
+- name: Install Packages
+  apt:
+    name:
+      - acl
+      - vim
+      - docker.io
+      - git
+      - git-extras
+    state: present
+  become: yes
+  tags:
+    - install
