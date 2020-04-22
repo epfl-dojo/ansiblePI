@@ -2,9 +2,13 @@
 - name: Add several users from ./vars/main.yml
   user:
     name: "{{ item.name }}"
+    group: "{{ item.name }}"
+    groups: docker
     state: present
   become: yes
   with_items: "{{ piusers }}"
+  tags:
+    - groups
 
 - name: Ensure ssh keys in user's home
   authorized_key:

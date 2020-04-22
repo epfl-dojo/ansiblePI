@@ -7,21 +7,13 @@
         upgrade: yes
       become: yes
 
-    - name: Install ACL
-      apt:
-        name: acl
-        state: present
-      become: yes
-  tags:
-    - install
 
 - name: Setup users
-  hosts: pi_*
+  hosts: all
   roles:
     - name: setup_users
 
 - name: Install pi
-  hosts: pi_*
+  hosts: all
   roles:
     - name: install_pi
-
