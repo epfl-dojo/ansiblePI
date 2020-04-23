@@ -1,19 +1,20 @@
 ---
-- name: Install docker Package
+- name: install docker package
   apt:
     name: docker.io
     state: present
+    force_apt_get: yes
   become: yes
   tags:
     - install-docker
 
-- name: Start service docker, if not started
+- name: start service docker, if not started
   service:
     name: docker
     state: started
   become: yes
 
-- name: Ensure dojo user in docker group
+- name: ensure dojo user in docker group
   user:
     name: dojo
     append: yes
@@ -21,7 +22,7 @@
     state: present
   become: yes
 
-- name: Ensure pi user in docker group
+- name: ensure pi user in docker group
   user:
     name: pi
     append: yes
@@ -29,41 +30,42 @@
     state: present
   become: yes
 
-- name: Install python-backports.ssl-match-hostname package
+- name: install python-backports.ssl-match-hostname package
   apt:
     name: python-backports.ssl-match-hostname
     state: present
+    force_apt_get: yes
   become: yes
 
-- name: Remove pip docker
-  pip:
-    name: docker
-    state: absent
-  become: yes
+# - name: remove pip docker
+#   pip:
+#     name: docker
+#     state: absent
+#   become: yes
 
-- name: Remove pip docker-py
+- name: remove pip docker-py
   pip:
     name: docker-py
     state: absent
   become: yes
 
-- name: Install docker for pip
+- name: install docker for pip
   pip:
     name: docker
     state: present
   become: yes
 
-- name: Create a web directory in dojo's home
+- name: create a web directory in dojo's home
   file:
     path: /home/dojo/web
     state: directory
 
-- name: Deploy inline template
+- name: deploy inline template
   copy:
     content: '<html><head><title>Hello</title></head><body><h1>Hello World!</h1></body></html>'
     dest: /home/dojo/web/index.html
 
-- name: Test docker
+- name: test docker
   docker_container:
     name: test-apache-hello-world
     state: started

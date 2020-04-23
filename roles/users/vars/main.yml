@@ -1,0 +1,14 @@
+---
+# vars file for set_user
+
+# https://docs.ansible.com/ansible/latest/plugins/lookup/items.html
+piusers:
+  - { name: cangiani,  ghname: multiscan }
+  - { name: czufferey, ghname: zuzu59 }
+  - { name: javet,     ghname: tacticsch }
+  - { name: jycosand,  ghname: saphirevert }
+  - { name: nborboen,  ghname: ponsfrilus }
+  - { name: nreymond,  ghname: nicolasreymond }
+  - { name: quatrava,  ghname: domq }
+
+access: "{{ item.ghname in (pi_owners | default([])) }}"
