@@ -3,6 +3,7 @@
   apt:
     name: docker.io
     state: present
+    force_apt_get: yes
   become: yes
   tags:
     - install-docker
@@ -33,6 +34,7 @@
   apt:
     name: python-backports.ssl-match-hostname
     state: present
+    force_apt_get: yes
   become: yes
 
 # - name: remove pip docker
