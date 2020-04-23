@@ -1,4 +1,11 @@
 ---
+- name: ensure group docker exists
+  group:
+    name: docker
+    state: present
+  tags:
+    - docker
+
 - name: Add several users from ./vars/main.yml
   user:
     name: "{{ item.name }}"
