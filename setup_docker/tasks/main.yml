@@ -1,9 +1,0 @@
----
-- name: Add Pi user into docker group
-  user:
-    name: "Pi"
-    groups: docker
-    state: present
-  become: yes
-  tags:
-    - docker_group
