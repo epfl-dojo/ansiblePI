@@ -1,5 +1,5 @@
 ---
-- name: Install Packages
+- name: install useful packages
   apt:
     name:
       - acl
