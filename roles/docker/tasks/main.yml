@@ -35,11 +35,11 @@
     state: present
   become: yes
 
-- name: remove pip docker
-  pip:
-    name: docker
-    state: absent
-  become: yes
+# - name: remove pip docker
+#   pip:
+#     name: docker
+#     state: absent
+#   become: yes
 
 - name: remove pip docker-py
   pip:
