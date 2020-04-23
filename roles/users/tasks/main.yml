@@ -74,4 +74,5 @@
   with_items: "{{ piusers }}"
   become: yes
   tags:
-    - root_key_ssh
+    - ssh_root_key
+    - github_key_import
