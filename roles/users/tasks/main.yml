@@ -1,5 +1,12 @@
 ---
-- name: Add several users from ./vars/main.yml
+- name: ensure group docker exists
+  group:
+    name: docker
+    state: present
+  tags:
+    - docker
+
+- name: add several users from ./vars/main.yml
   user:
     name: "{{ item.name }}"
     group: "{{ item.name }}"
@@ -10,7 +17,7 @@
   tags:
     - groups
 
-- name: Ensure ssh keys in user's home
+- name: ensure ssh keys in user's home
   authorized_key:
     user: "{{ item.name }}"
     state: present
@@ -22,33 +29,20 @@
   tags:
     - ssh
 
-- name: Allow specific user to have passwordless sudo
+- name: allow pi's owner to have passwordless sudo
   lineinfile:
     dest: /etc/sudoers
     state: present
     regexp: "^{{ item.name }}"
     line: "{{ item.name }} ALL=(ALL) NOPASSWD: ALL"
     validate: 'visudo -cf %s'
-  when: item.ghname != inventory_hostname and item.sudoer == true
+  when: item.ghname == inventory_hostname
   with_items: "{{ piusers }}"
   become: yes
   tags:
     - sudoer
 
-- name: Allow pi's owner to have passwordless sudo
-  lineinfile:
-    dest: /etc/sudoers
-    state: present
-    regexp: "^{{ item.name }}"
-    line: "{{ item.name }} ALL=(ALL) NOPASSWD: ALL"
-    validate: 'visudo -cf %s'
-  when: item.ghname == inventory_hostname and item.sudoer == false
-  with_items: "{{ piusers }}"
-  become: yes
-  tags:
-    - sudoer
-
-- name: Ensure uers's ssh keys in dojo account
+- name: ensure uers's ssh keys in dojo account
   authorized_key:
     user: dojo
     state: present
@@ -58,7 +52,7 @@
   become: yes
   become_user: dojo
 
-- name: Allow dojo to sudo without password
+- name: allow dojo to sudo without password
   lineinfile:
     dest: /etc/sudoers
     state: present
@@ -67,7 +61,7 @@
     validate: 'visudo -cf %s'
   become: yes
 
-- name: Ensure users's ssh keys in root account
+- name: ensure users's ssh keys in root account
   authorized_key:
     user: root
     state: "{{ 'present' if access else 'absent' }}"

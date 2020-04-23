@@ -4,7 +4,8 @@
     - name: Install updates
       apt:
         update_cache: yes
-        upgrade: yes
+        upgrade: 'yes'
+        force_apt_get: yes
       become: yes
 
 - name: Setup users

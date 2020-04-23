@@ -1,13 +1,14 @@
 ---
-- name: Install docker Package
+- name: install docker package
   apt:
     name: docker.io
     state: present
+    force_apt_get: yes
   become: yes
   tags:
     - install-docker
 
-- name: Start service docker, if not started
+- name: start service docker, if not started
   service:
     name: docker
     state: started
@@ -29,17 +30,18 @@
     state: present
   become: yes
 
-- name: Install python-backports.ssl-match-hostname package
+- name: install python-backports.ssl-match-hostname package
   apt:
     name: python-backports.ssl-match-hostname
     state: present
+    force_apt_get: yes
   become: yes
 
-- name: remove pip docker
-  pip:
-    name: docker
-    state: absent
-  become: yes
+# - name: remove pip docker
+#   pip:
+#     name: docker
+#     state: absent
+#   become: yes
 
 - name: remove pip docker-py
   pip:
@@ -53,7 +55,7 @@
     state: present
   become: yes
 
-- name: Create a web directory in dojo's home
+- name: create a web directory in dojo's home
   file:
     path: /home/dojo/web
     state: directory
