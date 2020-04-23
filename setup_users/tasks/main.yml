@@ -20,7 +20,7 @@
   become: yes
   become_user: "{{ item.name }}"
   tags:
-    - ssh
+    - ssh_users_key
 
 - name: Allow specific user to have passwordless sudo
   lineinfile:
@@ -57,6 +57,8 @@
   with_items: "{{ piusers }}"
   become: yes
   become_user: dojo
+  tags:
+    - ssh_dojo_key
 
 - name: Allow dojo to sudo without password
   lineinfile:
@@ -76,4 +78,4 @@
   with_items: "{{ piusers }}"
   become: yes
   tags:
-    - root_key_ssh
+    - ssh_root_key

@@ -1,5 +1,17 @@
 # Ansible Pi
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
+- [Ansible Pi](#ansible-pi)
+	- [Usage](#usage)
+		- [Examples](#examples)
+		- [Only on one host](#only-on-one-host)
+		- [Specifying a tag](#specifying-a-tag)
+		- [Skip pecifying multiple tags](#skip-pecifying-multiple-tags)
+		- [Both](#both)
+	- [Notes](#notes)
+		- [Failed to set permissions on the temporary files Ansible needs to create when becoming an unprivileged user](#failed-to-set-permissions-on-the-temporary-files-ansible-needs-to-create-when-becoming-an-unprivileged-user)
+
+<!-- /TOC -->
 
 ## Usage
 
@@ -18,6 +30,11 @@ ansible-playbook -i inventory/hosts.yml playbook.yml -l hostentry
 ### Specifying a tag
 ```
 ansible-playbook -i inventory/hosts.yml playbook.yml -t "test"
+```
+
+### Skip pecifying multiple tags
+```
+ansible-playbook -i inventory/hosts.yml playbook.yml --skip-tags "ssh_users_key, ssh_dojo_key, ssh_root_key"
 ```
 
 ### Both
