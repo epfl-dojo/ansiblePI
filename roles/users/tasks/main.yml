@@ -27,7 +27,8 @@
   become: yes
   become_user: "{{ item.name }}"
   tags:
-    - ssh
+    - ssh_users_key
+    - github_key_import
 
 - name: allow pi's owner to have passwordless sudo
   lineinfile:
@@ -51,7 +52,10 @@
   with_items: "{{ piusers }}"
   become: yes
   become_user: dojo
-
+  tags:
+    - ssh_dojo_key
+    - github_key_import
+    
 - name: allow dojo to sudo without password
   lineinfile:
     dest: /etc/sudoers
