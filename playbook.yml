@@ -16,7 +16,9 @@
 - name: Install pi
   hosts: all
   roles:
-    - name: install_pi
+    - name: comfort
+  tags:
+    - comfort
 
 - name: Setup docker
   hosts: all
