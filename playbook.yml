@@ -7,11 +7,12 @@
         upgrade: yes
       become: yes
 
-
 - name: Setup users
   hosts: all
   roles:
-    - name: setup_users
+    - name: users
+  tags: 
+    - users
 
 - name: Install pi
   hosts: all
