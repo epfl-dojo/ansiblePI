@@ -21,4 +21,6 @@
 - name: Setup docker
   hosts: all
   roles:
-    - name: setup_docker
+    - name: docker
+  tags:
+    - docker

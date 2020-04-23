@@ -4,7 +4,6 @@
     name:
       - acl
       - vim
-      - docker.io
       - git
       - git-extras
       - tmux
