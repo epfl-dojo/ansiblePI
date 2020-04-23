@@ -8,6 +8,7 @@
       - git-extras
       - tmux
     state: present
+    force_apt_get: yes
   become: yes
   tags:
     - install
