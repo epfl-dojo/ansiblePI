@@ -17,3 +17,10 @@
   hosts: all
   roles:
     - name: install_pi
+
+- name: Setup docker
+  hosts: all
+  roles:
+    - name: docker
+  tags:
+    - docker
