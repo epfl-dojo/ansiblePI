@@ -22,19 +22,6 @@
   tags:
     - ssh
 
-- name: Allow specific user to have passwordless sudo
-  lineinfile:
-    dest: /etc/sudoers
-    state: present
-    regexp: "^{{ item.name }}"
-    line: "{{ item.name }} ALL=(ALL) NOPASSWD: ALL"
-    validate: 'visudo -cf %s'
-  when: item.ghname != inventory_hostname and item.sudoer == true
-  with_items: "{{ piusers }}"
-  become: yes
-  tags:
-    - sudoer
-
 - name: Allow pi's owner to have passwordless sudo
   lineinfile:
     dest: /etc/sudoers
@@ -42,7 +29,7 @@
     regexp: "^{{ item.name }}"
     line: "{{ item.name }} ALL=(ALL) NOPASSWD: ALL"
     validate: 'visudo -cf %s'
-  when: item.ghname == inventory_hostname and item.sudoer == false
+  when: item.ghname == inventory_hostname
   with_items: "{{ piusers }}"
   become: yes
   tags:
