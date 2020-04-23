@@ -40,7 +40,7 @@ ansible-playbook -i inventory/hosts.yml playbook.yml --skip-tags "github_key_imp
 
 ### Skip specifying multiple tags
 ```
-ansible-playbook -i inventory/hosts.yml playbook.yml --skip-tags "ssh_users_key, ssh_dojo_key, ssh_root_key"
+ansible-playbook -i inventory/hosts.yml playbook.yml --skip-tags "tag1,tag2,tag3"
 ```
 
 ### Both
