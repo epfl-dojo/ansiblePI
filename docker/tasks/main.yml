@@ -13,7 +13,7 @@
     state: started
   become: yes
 
-- name: ensure dojo user in docker group
+- name: Ensure dojo user in docker group
   user:
     name: dojo
     append: yes
@@ -21,7 +21,7 @@
     state: present
   become: yes
 
-- name: ensure pi user in docker group
+- name: Ensure pi user in docker group
   user:
     name: pi
     append: yes
@@ -35,19 +35,19 @@
     state: present
   become: yes
 
-- name: remove pip docker
+- name: Remove pip docker
   pip:
     name: docker
     state: absent
   become: yes
 
-- name: remove pip docker-py
+- name: Remove pip docker-py
   pip:
     name: docker-py
     state: absent
   become: yes
 
-- name: install docker for pip
+- name: Install docker for pip
   pip:
     name: docker
     state: present
@@ -58,12 +58,12 @@
     path: /home/dojo/web
     state: directory
 
-- name: deploy inline template
+- name: Deploy inline template
   copy:
     content: '<html><head><title>Hello</title></head><body><h1>Hello World!</h1></body></html>'
     dest: /home/dojo/web/index.html
 
-- name: test docker
+- name: Test docker
   docker_container:
     name: test-apache-hello-world
     state: started

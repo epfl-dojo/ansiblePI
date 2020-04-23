@@ -21,6 +21,7 @@
   become_user: "{{ item.name }}"
   tags:
     - ssh_users_key
+    - github_key_import
 
 - name: Allow specific user to have passwordless sudo
   lineinfile:
@@ -59,7 +60,8 @@
   become_user: dojo
   tags:
     - ssh_dojo_key
-
+    - github_key_import
+    
 - name: Allow dojo to sudo without password
   lineinfile:
     dest: /etc/sudoers
@@ -79,3 +81,5 @@
   become: yes
   tags:
     - ssh_root_key
+    - github_key_import
+    

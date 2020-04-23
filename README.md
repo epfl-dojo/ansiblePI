@@ -32,7 +32,12 @@ ansible-playbook -i inventory/hosts.yml playbook.yml -l hostentry
 ansible-playbook -i inventory/hosts.yml playbook.yml -t "test"
 ```
 
-### Skip pecifying multiple tags
+### Skip specifying a tag
+```
+ansible-playbook -i inventory/hosts.yml playbook.yml --skip-tags "github_key_import"
+```
+
+### Skip specifying multiple tags
 ```
 ansible-playbook -i inventory/hosts.yml playbook.yml --skip-tags "ssh_users_key, ssh_dojo_key, ssh_root_key"
 ```
