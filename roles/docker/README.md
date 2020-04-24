@@ -16,7 +16,7 @@ The Ansible user have to be in the docker group.
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------

@@ -6,7 +6,7 @@ Install comfort tools
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------

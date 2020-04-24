@@ -13,7 +13,7 @@ The role's variables are defined in `vars/main.yml` and some option defined in t
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------
