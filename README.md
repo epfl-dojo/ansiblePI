@@ -6,7 +6,8 @@
 		- [Examples](#examples)
 		- [Only on one host](#only-on-one-host)
 		- [Specifying a tag](#specifying-a-tag)
-		- [Skip pecifying multiple tags](#skip-pecifying-multiple-tags)
+		- [Skip specifying a tag](#skip-specifying-a-tag)
+		- [Skip specifying multiple tags](#skip-specifying-multiple-tags)
 		- [Both](#both)
 	- [Notes](#notes)
 		- [Failed to set permissions on the temporary files Ansible needs to create when becoming an unprivileged user](#failed-to-set-permissions-on-the-temporary-files-ansible-needs-to-create-when-becoming-an-unprivileged-user)
@@ -39,7 +40,7 @@ ansible-playbook -i inventory/hosts.yml playbook.yml --skip-tags "github_key_imp
 
 ### Skip specifying multiple tags
 ```
-ansible-playbook -i inventory/hosts.yml playbook.yml --skip-tags "ssh_users_key, ssh_dojo_key, ssh_root_key"
+ansible-playbook -i inventory/hosts.yml playbook.yml --skip-tags "tag1,tag2,tag3"
 ```
 
 ### Both

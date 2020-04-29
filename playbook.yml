@@ -7,6 +7,8 @@
         upgrade: 'yes'
         force_apt_get: yes
       become: yes
+      tags:
+        - update_pi
 
 - name: Setup users
   hosts: all
