@@ -14,7 +14,7 @@
   hosts: all
   roles:
     - name: users
-  tags: 
+  tags:
     - users
 
 - name: Install pi
@@ -30,3 +30,10 @@
     - name: docker
   tags:
     - docker
+
+- name: Setup nextcloud with docker
+  hosts: pi_nre
+  roles:
+    - name: nextcloud
+  tags:
+    - nextcloud
